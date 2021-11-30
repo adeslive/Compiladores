@@ -1,30 +1,50 @@
+from tkinter import *
 import re
 
 # Patrones:
 NUMERO = r'[0-9]+'
-DECIMAL = r'Decimal'
-OCTAL = r'Octal'
-HEXADECIMAL = r'Hexadecimal'
-ROMANO = r'Romano'
-BINARIO = r'Binario'
+DECIMAL = r'Dec'
+OCTAL = r'Oct'
+HEXADECIMAL = r'Hex'
+ROMANO = r'Rom'
+BINARIO = r'Bin'
 
 regexList = [DECIMAL, OCTAL, HEXADECIMAL, BINARIO, ROMANO]
 
-OPTIONREGEX = '|'.join(regexList)
+OPTIONREGEX = r'(' + '|'.join(regexList) + r'){1}'
 
-REGEX = NUMERO + OPTIONREGEX
+REGEX = r'(' + NUMERO + OPTIONREGEX + r')+'
 
 
-def showOptions():
-    cadena = input('Por favor, ingrese una cadena valida:')
-    print(re.findall(REGEX, cadena))
-    print(re.findall(NUMERO, cadena))
-    print(re.findall(OPTIONREGEX, cadena))
+winConvert = Tk()
+winConvert.geometry("600x250")
+winConvert.eval('tk::PlaceWindow . center')
+
+lblTitle = Label(winConvert, text='Multiconversor')
+lblTitle.pack(pady=5)
+lblInstruction = Label(
+    winConvert, text='Ingrese una cadena valida (Número decimal + destino de conversión)')
+lblInstruction.pack()
+iptUserString = Entry(winConvert, width=70, text='Multiconversor')
+iptUserString.pack(pady=5)
+
+
+def convert():
+    cadena = iptUserString.get()
+    for match in re.findall(REGEX, cadena):
+        print(match[0])
+        lblReceipt = Label(winConvert, text='Entrada: ' +
+                           match[0] + ' => Conversión: (a desarrollar)')
+        lblReceipt.pack()
+
+
+btnAccept = Button(winConvert, text="Convertir", command=convert)
+btnAccept.pack(pady=5)
 
 
 def main():
     print('Multiconversor')
-    showOptions()
+    winConvert.mainloop()
 
 
 if __name__ == '__main__':
