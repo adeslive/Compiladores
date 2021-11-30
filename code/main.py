@@ -32,6 +32,7 @@ iptUserString.pack(pady=5)
 def convert():
     cadena = iptUserString.get()
     for match in re.findall(REGEX, cadena):
+        # Por cada match se debe sacar el numero y el destino
         print(match[0])
         lblReceipt = Label(winConvert, text='Entrada: ' +
                            match[0] + ' => Conversión: (a desarrollar)')
