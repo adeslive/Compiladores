@@ -74,7 +74,7 @@ def checkConversion(numero, destino):
         base = getBase(destino)
         resultado = decToBase(numero, base)
     elif destino == 'Rom':
-        resultado = convert_to_roman(numero)
+        resultado = decToRoman(numero)
 
     return resultado
 
@@ -89,7 +89,7 @@ def getBase(destino):
     }[destino]
 
 
-def convert_to_roman(normal):
+def decToRoman(normal):
     num = [1, 4, 5, 9, 10, 40, 50, 90,
            100, 400, 500, 900, 1000]
     sym = ['I', 'IV', 'V', 'IX', 'X', 'XL',
