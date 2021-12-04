@@ -2,8 +2,12 @@ import re
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
+import random
 
 def conversion(cadena):
+    opt = ['Bin','Oct', 'Hex', 'Quint', 'Rom']
+    remp = random.choice(opt)
+    cadena = cadena.replace('Ale',remp)
     NUMERO = r'[0-9]+'
     DECIMAL = r'Dec'
     OCTAL = r'Oct'
@@ -119,7 +123,7 @@ class ventanaBienvenida():
         self.lbl2.grid(row = 0, column = 2,padx=20, pady=20)
         self.f2 = Frame(self.f1, bg = 'white')
         self.f2.grid(row = 1, column = 1)
-        img = Image.open("code/tuerca.gif")
+        img = Image.open("tuerca.gif")
         imgg = img.resize((150,150))
         tuerca= ImageTk.PhotoImage(imgg)
         self.img =Label(self.f2, image = tuerca, bg = 'white')
@@ -215,7 +219,7 @@ class ventanaMenu():
         self.lblIns3.grid(row = 3, column= 0, sticky = 'W', padx = 10, pady =(10,0))
         self.lblSis1 = Label(self.f2, bg ='white',text = '    Bin\t>    Binario', fg = '#1995AD',font = ('Roboto', 12))
         self.lblSis1.grid(row = 4, column= 0, sticky = 'W', padx = 10)
-        self.lblSis1 = Label(self.f2, bg ='white',text = '    Quint\t>    Quintario', fg = '#1995AD',font = ('Roboto', 12))
+        self.lblSis1 = Label(self.f2, bg ='white',text = '    Quint\t>    Quinario', fg = '#1995AD',font = ('Roboto', 12))
         self.lblSis1.grid(row = 5, column= 0, sticky = 'W', padx = 10)
         self.lblSis1 = Label(self.f2, bg ='white',text = '    Oct\t>    Octal', fg = '#1995AD',font = ('Roboto', 12))
         self.lblSis1.grid(row = 6, column= 0, sticky = 'W', padx = 10)
@@ -273,7 +277,7 @@ class ventanaResultado():
         self.lblsTipo = []
         self.lblsValor = []
         self.lblsCol = []
-        resTemp = ''
+        resTemp = []
         for i,token in enumerate(resultado[1]):
             self.lblsTipo.append(Label(self.f3, bg='#f1f1f2', text = 'Tipo de Token: [digitos]+[sistema]', font = ('Roboto', 12), fg = '#1995AD'))
             self.lblsTipo[i].grid(row = 2 + i, column = 0, sticky= 'W', padx = 15)
@@ -282,25 +286,20 @@ class ventanaResultado():
             self.lblL5 = Label(self.f3, bg='#f1f1f2', text = 'Columna del Token: ' + str(c), font = ('Roboto', 12), fg = '#1995AD')
             self.lblL5.grid(row = 2 + i, column = 2, sticky= 'W', padx = 15)
             c += len(token[0]) + len(token[1]) + 1
-            resTemp += 'Entrada: ' + token[0]+token[1] + ' => Conversión: ' + token[2] +'\n'
+            resTemp.append('Entrada: ' + token[0]+token[1] + ' => Conversión: ' + token[2])
         self.lbll = Label(self.f2, bg='white', text = '', font = ('Roboto', 12), fg = '#1995AD')
         self.lbll.grid(row = 2, column = 0)
         self.f4 = Frame(self.f2, bg= '#f1f1f2')
         self.f4.grid(row = 3, column = 0, sticky= 'W', padx = 15)
         self.lblL6 = Label(self.f4, bg='#f1f1f2', text = 'Analizador Sintactico', font = ('Roboto', 12, 'bold'), fg = '#1995AD')
         self.lblL6.grid(row = 0, column = 0, sticky= 'W', padx = (15,500))
-        self.lblL7 = Label(self.f4, bg='#f1f1f2', text = '¿Arbol?', font = ('Roboto', 12), fg = '#1995AD')
+        self.lblL7 = Label(self.f4, bg='#f1f1f2', text = 'Salida de Operacion:', font = ('Roboto', 12), fg = '#1995AD')
         self.lblL7.grid(row = 1, column = 0, sticky= 'W', padx = 15)
-        self.lblL8 = Label(self.f4, bg='#f1f1f2', text = '', font = ('Roboto', 12), fg = '#1995AD')
-        self.lblL8.grid(row = 2, column = 0)
-        self.lblL9 = Label(self.f4, bg='#f1f1f2', text = '', font = ('Roboto', 12), fg = '#1995AD')
-        self.lblL9.grid(row = 3, column = 0)
-        self.lblL10 = Label(self.f4, bg='#f1f1f2', text = '', font = ('Roboto', 12), fg = '#1995AD')
-        self.lblL10.grid(row = 4, column = 0)
-        self.lblres = Label(self.f2, bg = '#E3DB8A', text = 'Resultado Final: ', font = ('Roboto', 12))
-        self.lblres.grid(row = 5, column = 0,padx=20, pady=(20,0))
-        self.lblres2 = Label(self.f2, bg = '#E3DB8A', text = resTemp, font = ('Roboto', 12))
-        self.lblres2.grid(row = 6, column = 0,padx=20)
+        self.lblsRes = []
+        for i,res in enumerate(resTemp):
+            self.lblsRes.append(Label(self.f4, bg='#f1f1f2', text = res, font = ('Roboto', 12), fg = '#1995AD'))
+            self.lblsRes[i].grid(row = 2+i, column = 0, sticky= 'W', padx = 15)
+        
         self.btn = Button(self.f2, bg = '#1995AD',fg='white' ,command = self.avanzar, text = 'Finalizar', font = ('Roboto', 12, 'bold'), width= 15)
         self.btn.grid(row = 7, column = 0,padx=20, pady=(10,20))
         self.lbl = Label(self.f1, bg ='#A1D6E2',text = '')
