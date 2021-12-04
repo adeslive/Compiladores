@@ -119,7 +119,7 @@ class ventanaBienvenida():
         self.lbl2.grid(row = 0, column = 2,padx=20, pady=20)
         self.f2 = Frame(self.f1, bg = 'white')
         self.f2.grid(row = 1, column = 1)
-        img = Image.open("tuerca.gif")
+        img = Image.open("code/tuerca.gif")
         imgg = img.resize((150,150))
         tuerca= ImageTk.PhotoImage(imgg)
         self.img =Label(self.f2, image = tuerca, bg = 'white')
